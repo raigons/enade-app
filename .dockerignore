@@ -1,0 +1,7 @@
+log/*
+db/*
+build/
+.DS_Store
+config/secrets.yml.key
+.git/
+infra/

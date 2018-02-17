@@ -9,6 +9,7 @@ COPY . /usr/src/app/
 
 RUN apk add --update --virtual .rails-builddeps \
   build-base \
+  && apk add --update sqlite-dev \
   && bundle install --no-cache --clean --without development test \
   && apk del .rails-builddeps
 
