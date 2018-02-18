@@ -7,7 +7,23 @@ RSpec.describe InstitutionsController, type: :request do
       get '/institutions'
 
       expect(response).to render_template(:index)
-      expect(response.body).to include("Institution 1 - Nota: 99.87")
+      expect(response.body).to include("Institution 1")
+      expect(response.body).to include("Nota: 99.87")
+    end
+  end
+
+  describe 'POST /institutions' do
+    it "creates a new institution" do
+      get '/institutions/new'
+
+      expect(response).to render_template(:new)
+
+      post "/institutions", params: { institution: { name: "Institution" } }
+
+      expect(response).to redirect_to(assigns(:institution))
+      follow_redirect!
+
+      expect(response).to render_template(:show)
     end
   end
 
@@ -21,7 +37,8 @@ RSpec.describe InstitutionsController, type: :request do
 
       expect(response).to render_template(:index)
 
-      expect(response.body).to include ("Institution With no score - Nota: 80.5")
+      expect(response.body).to include("Institution With no score")
+      expect(response.body).to include("Nota: 80.5")
     end
   end
 end

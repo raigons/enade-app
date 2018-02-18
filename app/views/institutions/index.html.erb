@@ -2,6 +2,8 @@
 
 <ul>
   <% @institutions.each do |institution| %>
-    <li><%= institution.name %> - Nota: <%= institution.general_score %></li>
+    <li>
+      <%= link_to institution.name, institution %> - Nota: <%= institution.general_score %>
+    </li>
   <% end %>
 </ul>
