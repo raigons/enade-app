@@ -1,0 +1,7 @@
+<h2>Instituições</h2>
+
+<ul>
+  <% @institutions.each do |institution| %>
+    <li><%= institution.name %> - Nota: <%= institution.general_score %></li>
+  <% end %>
+</ul>
