@@ -1,9 +1,11 @@
 <h2>Instituições</h2>
 
 <ul>
-  <% @institutions.each do |institution| %>
+  <% @institutions.each_with_index do |institution, index| %>
     <li>
-      <%= link_to institution.name, institution %> - Nota: <%= institution.general_score %>
+      <%= (index + 1) %>: <%= link_to institution.name, institution %> - Nota: <%= institution.general_score %>
     </li>
   <% end %>
 </ul>
+
+<%= link_to 'New', new_institution_path %>

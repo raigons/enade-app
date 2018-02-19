@@ -10,6 +10,17 @@ RSpec.describe InstitutionsController, type: :request do
       expect(response.body).to include("Institution 1")
       expect(response.body).to include("Nota: 99.87")
     end
+
+    it "lists ordered by score" do
+      institution = Institution.create!(name: "Institution 1", general_score: 99.87)
+      institution_2 = Institution.create!(name: "Institution 2", general_score: 93.5)
+      institution_3 = Institution.create!(name: "Institution 3", general_score: 100)
+
+      get '/institutions'
+
+      expect(response.body).to include("1: <a href=\"/institutions/3\">Institution 3</a>")
+      expect(response.body).to include("2: <a href=\"/institutions/1\">Institution 1</a>")
+    end
   end
 
   describe 'POST /institutions' do
@@ -32,6 +43,7 @@ RSpec.describe InstitutionsController, type: :request do
       institution = Institution.create!(name: "Institution With no score")
 
       put "/institutions/#{institution.id}", params: { institution: { general_score: 80.5 } }
+      follow_redirect!
 
       follow_redirect!
 

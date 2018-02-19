@@ -4,7 +4,7 @@ class InstitutionsController < ApplicationController
   end
 
   def index
-    @institutions = Institution.all
+    @institutions = Institution.all.order(general_score: :desc)
   end
 
   def show
@@ -13,12 +13,9 @@ class InstitutionsController < ApplicationController
 
   def create
     @institution = Institution.new(institution_params)
+    @institution.save!
 
-    if @institution.save
-      redirect_to @institution
-    else
-      render 'new'
-    end
+    redirect_to @institution
   end
 
   def edit

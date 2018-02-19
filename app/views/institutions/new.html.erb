@@ -1,6 +1,6 @@
-<h1>Edit Institution</h1>
+<h1>Create Institution</h1>
 
-<%= form_with scope: :article, local: true do |form| %>
+<%= form_with scope: :institution, url: institutions_path, local: true do |form| %>
   <p>
     <%= form.label :name %><br>
     <%= form.text_field :name %>
