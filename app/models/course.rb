@@ -1,3 +1,4 @@
 class Course < ApplicationRecord
-  has_and_belongs_to_many :institutions
+  has_many :courses_institutions, class_name: 'CourseInstitution'
+  has_many :institutions, through: :courses_institutions, source: :institution
 end

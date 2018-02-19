@@ -12,17 +12,17 @@
 
 ActiveRecord::Schema.define(version: 20180219012339) do
 
+  create_table "course_institutions", id: false, force: :cascade do |t|
+    t.integer "institution_id", null: false
+    t.integer "course_id", null: false
+    t.index ["course_id", "institution_id"], name: "index_course_institutions_on_course_id_and_institution_id"
+    t.index ["institution_id", "course_id"], name: "index_course_institutions_on_institution_id_and_course_id"
+  end
+
   create_table "courses", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "courses_institutions", id: false, force: :cascade do |t|
-    t.integer "institution_id", null: false
-    t.integer "course_id", null: false
-    t.index ["course_id", "institution_id"], name: "index_courses_institutions_on_course_id_and_institution_id"
-    t.index ["institution_id", "course_id"], name: "index_courses_institutions_on_institution_id_and_course_id"
   end
 
   create_table "institutions", force: :cascade do |t|
