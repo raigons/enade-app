@@ -1,0 +1,15 @@
+<h1>Edit Course</h1>
+
+<%= form_with(model: @course) do |form| %>
+  <p>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+
+<% end %>
+
+<%= link_to 'Back', courses_path %>

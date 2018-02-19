@@ -45,12 +45,31 @@ RSpec.describe InstitutionsController, type: :request do
       put "/institutions/#{institution.id}", params: { institution: { general_score: 80.5 } }
       follow_redirect!
 
+      expect(response.body).to include("Institution With no score")
+      expect(response.body).to include("80.5")
+    end
+
+    it "sets courses to an institution" do
+      math = Course.create!(name: "Matematica")
+      bio = Course.create!(name: "Biologia")
+      chem = Course.create!(name: "Química")
+      institution = Institution.create!(name: "PUC")
+
+      put "/institutions/#{institution.id}", params: { institution: { course_ids: [math.id, chem.id] } }
       follow_redirect!
 
-      expect(response).to render_template(:index)
+      expect(response.body).to include("PUC")
+      expect(response.body).to include("<li>
+        Matematica
+      </li>")
 
-      expect(response.body).to include("Institution With no score")
-      expect(response.body).to include("Nota: 80.5")
+      expect(response.body).to include("<li>
+        Química
+      </li>")
+
+      expect(response.body).to_not include("<li>
+        Biologia
+      </li>")
     end
   end
 end

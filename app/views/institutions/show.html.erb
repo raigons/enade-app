@@ -8,5 +8,25 @@
   <%= @institution.general_score %>
 </p>
 
+<p>
+  <strong>Courses:</strong>
+  <ul>
+    <% @institution.courses.each do |course| %>
+      <li>
+        <%= course.name %>
+      </li>
+    <% end %>
+  </ul>
+
+  <hr />
+
+  <h2>Add a course:</h2>
+
+  <%= form_for @institution do |f| %>
+    <%= f.collection_check_boxes(:course_ids, Course.all, :id, :name) %>
+    <%= f.submit %>
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_institution_path(@institution) %> |
 <%= link_to 'Back', institutions_path %>

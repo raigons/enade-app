@@ -24,17 +24,27 @@ class InstitutionsController < ApplicationController
 
   def update
     @institution = institution
+
+    add_courses_to_institution
+
     @institution.update(institution_params)
 
-    redirect_to institutions_path
+    redirect_to @institution
   end
 
   private
+    def add_courses_to_institution
+      params[:institution][:course_ids].reject(&:blank?).each do |value|
+        course = Course.find(value)
+        @institution.courses << course
+      end if params[:institution][:course_ids].present?
+    end
+
     def institution
       Institution.find(params[:id])
     end
 
     def institution_params
-      params.require(:institution).permit(:name, :general_score)
+      params.require(:institution).permit(:name, :general_score, :course_ids)
     end
 end
