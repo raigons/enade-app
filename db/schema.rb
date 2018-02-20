@@ -10,11 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180219012339) do
+ActiveRecord::Schema.define(version: 20180219131019) do
 
   create_table "course_institutions", id: false, force: :cascade do |t|
     t.integer "institution_id", null: false
     t.integer "course_id", null: false
+    t.float "score"
+    t.float "student_average"
     t.index ["course_id", "institution_id"], name: "index_course_institutions_on_course_id_and_institution_id"
     t.index ["institution_id", "course_id"], name: "index_course_institutions_on_institution_id_and_course_id"
   end

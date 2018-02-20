@@ -20,11 +20,13 @@ class InstitutionsController < ApplicationController
 
   def edit
     @institution = institution
+    @institution.courses_institutions.build
   end
 
   def update
     @institution = institution
 
+    add_score_to_course
     add_courses_to_institution
 
     @institution.update(institution_params)
@@ -33,6 +35,12 @@ class InstitutionsController < ApplicationController
   end
 
   private
+    def add_score_to_course
+      # params[:institution][:courses_institutions_attributes].each do |index, course_institution|
+      #
+      # end
+    end
+
     def add_courses_to_institution
       params[:institution][:course_ids].reject(&:blank?).each do |value|
         course = Course.find(value)

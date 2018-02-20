@@ -8,25 +8,29 @@
   <%= @institution.general_score %>
 </p>
 
-<p>
-  <strong>Courses:</strong>
-  <ul>
-    <% @institution.courses.each do |course| %>
-      <li>
-        <%= course.name %>
-      </li>
-    <% end %>
-  </ul>
+<%= form_for @institution do |f| %>
+  <p>
+    <strong>Courses:</strong>
+    <ul>
+      <%= f.fields_for :courses_institutions do |courses_institutions| %>
+        <li>
+          <%=  @institution.courses[courses_institutions.index].try(:name) %>
+          <%=  courses_institutions.hidden_field :course_id, value: @institution.courses[courses_institutions.index].try(:id) %>
+          <%=  courses_institutions.label :score %>
+          <%=  courses_institutions.text_field :score %><br>
+        </li>
+      <% end %>
+    </ul>
 
-  <hr />
+    <%= f.submit "salvar notas" %>
+    <hr />
+  </p>
+<% end %>
 
+<%= form_for @institution do |f| %>
   <h2>Add a course:</h2>
-
-  <%= form_for @institution do |f| %>
-    <%= f.collection_check_boxes(:course_ids, Course.all, :id, :name) %>
-    <%= f.submit %>
-  <% end %>
-</p>
-
+  <%= f.collection_check_boxes(:course_ids, Course.all, :id, :name) %>
+  <%= f.submit "adicionar curso" %>
+<% end %>
 <%= link_to 'Edit', edit_institution_path(@institution) %> |
 <%= link_to 'Back', institutions_path %>

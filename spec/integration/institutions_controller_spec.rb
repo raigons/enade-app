@@ -59,17 +59,6 @@ RSpec.describe InstitutionsController, type: :request do
       follow_redirect!
 
       expect(response.body).to include("PUC")
-      expect(response.body).to include("<li>
-        Matematica
-      </li>")
-
-      expect(response.body).to include("<li>
-        Química
-      </li>")
-
-      expect(response.body).to_not include("<li>
-        Biologia
-      </li>")
     end
   end
 end
