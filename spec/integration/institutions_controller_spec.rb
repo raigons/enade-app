@@ -18,8 +18,8 @@ RSpec.describe InstitutionsController, type: :request do
 
       get '/institutions'
 
-      expect(response.body).to include("1: <a href=\"/institutions/3\">Institution 3</a>")
-      expect(response.body).to include("2: <a href=\"/institutions/1\">Institution 1</a>")
+      expect(response.body).to include("1: <a href=\"/institutions/#{institution_3.id}\">Institution 3</a>")
+      expect(response.body).to include("2: <a href=\"/institutions/#{institution.id}\">Institution 1</a>")
     end
   end
 
