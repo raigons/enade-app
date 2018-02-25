@@ -1,4 +1,4 @@
-# Approva Test
+# Test
 
 This is initial instructions for running the app.
 

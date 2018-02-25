@@ -10,12 +10,11 @@ gem 'rails-controller-testing'
 group :docker, :development, :test do
   gem 'rspec-rails', '~> 3.7'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'sqlite3'
 end
 
-group :production do
-  gem 'pg'
-end
+gem 'sqlite3', group: :development
+
+gem 'pg', group: :production
 
 group :test do
   gem 'shoulda-matchers', '~> 3.1'
