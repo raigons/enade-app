@@ -9,6 +9,7 @@
 .DS_Store
 .byebug_history
 build
+db/*.sqlite3
 
 # Ignore encrypted secrets key file.
 config/secrets.yml.key

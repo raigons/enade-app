@@ -1,18 +1,20 @@
-FROM approva/ruby:2.4.1
+FROM ruby:2.4.3-alpine
 
 # create app directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-# install app dependencies
 COPY . /usr/src/app/
 
-RUN apk add --update --virtual .rails-builddeps \
-  build-base \
-  && apk add --update sqlite-dev \
-  && bundle install --no-cache --clean --without development test \
-  && apk del .rails-builddeps
+ENV RAILS_ENV=docker
 
-EXPOSE 8080
+RUN apk add --update build-base
+RUN apk add --update sqlite-dev
 
-CMD [ "bundle", "exec", "rails", "server", "-b", "0.0.0.0", "-p", "8080" ]
+RUN bundle install --no-cache --clean --without production test \
+
+RUN bundle exec rails db:create && rails db:migrate
+
+EXPOSE 3000
+
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
